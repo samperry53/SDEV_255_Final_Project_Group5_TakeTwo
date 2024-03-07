@@ -10,10 +10,17 @@ app.set('view engine', 'ejs');
 app.listen(3000);
 
 app.get('/', (req, res) => {
-    res.send('<p>home page</p>');
+    const courses = [
+        {name: 'Biology', description: 'Science of Life', subject: 'Life Sciences', credits: '3'}
+    ];
+    res.render('index', { title: 'Home', courses });
 });
+
+app.get('/courses/create', (req, res) => {
+    res.render('create', { title: 'Add A New Course'});
+})
 
 // 404 page
 app.use((req, res) => {
-    res.status(404).sendFile('./views/404.html', { root: __dirname })
-});
+    res.render('404', { title: '404'});
+})

@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imaginary University</title>
-</head>
+    <%- include('./partials/head.ejs') %>
 <body>
-    <nav>
-        <div class="site-title">
-            <a href="/"><h1>Imaginary University</h1></a>
-            <p>Brought to you by Group5</p>
-        </div>
-        <ul>
-            <li><a href="/">Courses</a></li>
-            <li><a href="/courses/create">Add New Course</a></li>
-        </ul>       
-    </nav>
+
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="course content">
+        <h2>All Courses</h2>
+
+        <% if (courses.length > 0) { %>
+            <% courses.forEach(course => { %>
+
+            <h3 class="name"><%= course.name %></h3>
+            <p class="description"><%= course.description %></p>
+            <p class="subject"><%= course.subject %></p>
+            <p class="credits"><%= course.credits %></p>
+           <% }) %>
+        <% } else { %>
+        <p>There are no courses to display...</p> 
+        <% } %>
+        
+    </div>
+    <%- include('./partials/footer.ejs') %>
 </body>
 </html>
