@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Course = require('./models/course');
+const { render } = require('ejs');
 
 // express app
 const app = express();
@@ -20,6 +21,7 @@ app.set('view engine', 'ejs');
 
 // middleware and static files
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 // // mongoose and mongo sandbox routes
@@ -61,17 +63,21 @@ app.use(morgan('dev'));
 // })
 
 
-app.get('/', (req, res) => {
-    const courses = [
-        {name: 'Biology', description: 'Science of Life', subject: 'Life Sciences', credits: '3'}
-    ];
-    res.render('index', { title: 'Home', courses });
-});
+// app.get('/', (req, res) => {
+//     const courses = [
+//         {name: 'Biology', description: 'Science of Life', subject: 'Life Sciences', credits: '3'}
+//     ];
+//     res.render('index', { title: 'Home', courses });
+// });
 
 // course routes
 app.get('/', (req, res) => {
     res.redirect('/courses');
 });
+
+app.get('/courses/create', (req, res) => {
+    res.render('create', { title: 'Add A New Course'});
+})
 
 app.get('/courses', (req, res) => {
     Course.find().sort({ createdAt: -1 })
@@ -83,9 +89,42 @@ app.get('/courses', (req, res) => {
     })
 })
 
-app.get('/courses/create', (req, res) => {
-    res.render('create', { title: 'Add A New Course'});
+app.post('/courses', (req, res) => {
+    const course = new Course(req.body);
+
+    course.save()
+    .then((result) => {
+        res.redirect('/courses');
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 })
+
+app.get('/courses/:id', (req, res) => {
+    const id = req.params.id;
+    Course.findById(id)
+    .then(result => {
+       res.render('details', { course: result, title: 'Course Details' });
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+})
+
+app.delete('/courses/:id', (req, res) => {
+    const id = req.params.id;
+    
+    Course.findByIdAndDelete(id)
+    .then(result => {
+        res.json({ redirect: '/courses' })
+    })
+    .catch(err => {
+        console.log(err);
+    })
+})
+
+
 
 // 404 page
 app.use((req, res) => {
