@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const { render } = require('ejs');
 const courseRoutes = require('./routes/courseRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 // express app
 const app = express();
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
     res.locals.path = req.path;
     next();
 });
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.redirect('/courses');
@@ -32,6 +34,8 @@ app.get('/', (req, res) => {
 // course routes
 app.use('/courses', courseRoutes);
 
+// auth routes
+app.use(authRoutes);
 
 // 404 page
 app.use((req, res) => {

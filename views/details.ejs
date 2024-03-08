@@ -15,7 +15,9 @@
         <div class="content">
             <p><%= course.credits %></p>
         </div>
-        <a class="delete" data-doc="<%= course._id %>">delete</a>
+        <a class="delete" data-doc="<%= course._id %>">
+            <img src="/trashcan.svg" alt="delete icon">
+        </a>
     </div>
 
     <%- include('./partials/footer.ejs') %>

@@ -17,7 +17,7 @@ const course_details = (req, res) => {
       res.render('details', { course: result, title: 'Course Details' });
     })
     .catch(err => {
-      console.log(err);
+      res.status(404).render('404', { title: 'Course not found' });
     });
 }
 
