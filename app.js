@@ -6,6 +6,8 @@ const courseRoutes = require('./routes/courseRoutes');
 const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+const Course = require('./models/course');
+const User = require('./models/User');
 
 // express app
 const app = express();
@@ -29,12 +31,15 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use(cookieParser());
-
+// app.use(checkUser);
 // routes
 app.get('*', checkUser);
 app.get('/', (req, res) => {
-    // res.redirect('/courses');
     res.render('index', { title: 'Home' });
+    res.redirect('/courses');
+});
+app.get('/courses', requireAuth, (req, res) => {
+    res.render('courses', { title: 'All Courses' });
 });
 
 // course routes

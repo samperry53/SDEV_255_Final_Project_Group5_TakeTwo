@@ -3,6 +3,7 @@ const Course = require('../models/course');
 const course_index = (req, res) => {
   Course.find().sort({ createdAt: -1 })
     .then(result => {
+      console.log('Courses:', courses);
       res.render('courses', { courses: result, title: 'All courses' });
     })
     .catch(err => {

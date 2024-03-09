@@ -17,7 +17,7 @@ const requireAuth = (req, res, next) => {
     else {
         res.redirect('/login');
     }
-    next();
+    // next();
 }
 
 // check current user
@@ -38,7 +38,7 @@ const checkUser = (req, res, next) => {
     }
     else {
         res.locals.user = null;
-        next();
+        // next();
     }
 }
 
