@@ -27,7 +27,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use(express.json());
-app.use(cookieParser);
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
     res.redirect('/courses');
@@ -38,6 +38,7 @@ app.use('/courses', courseRoutes);
 
 // auth routes
 app.use(authRoutes);
+
 
 // 404 page
 app.use((req, res) => {

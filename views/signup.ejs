@@ -1,5 +1,7 @@
+<!DOCTYPE html>
+<html lang="en">
 <%- include('./partials/head.ejs') %>
-
+<%- include('./partials/nav.ejs') %>
 <form>
     <h2>Sign Up</h2>
     <label for="email">Email</label>
@@ -19,6 +21,10 @@
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+         // reset errors
+         emailError.textContent = '';
+        passwordError.textContent = '';
+
         // get the values
         const email = form.email.value;
         const password = form.password.value;
@@ -34,6 +40,9 @@
                 emailError.textContent = data.errors.email;
                 passwordError.textContent = data.errors.password;
             }
+            if (data.user) {
+                location.assign('/');
+            }
         }
         catch (err) {
             console.log(err);
@@ -42,3 +51,4 @@
 </script>
 
 <%- include('./partials/footer.ejs') %>
+</html>
