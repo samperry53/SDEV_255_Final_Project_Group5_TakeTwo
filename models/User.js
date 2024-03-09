@@ -15,13 +15,13 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please enter a password'],
         minlength: [4, 'Minimum password length is 4 characters']
     },
+    role: {
+        type: String,
+        enum: ['teacher', 'student'],
+        default: 'student',
+        required: true
+    }
 });
-
-// // fire a function after doc saved to db
-// userSchema.post('save', function (doc, next) {
-//     console.log('new user was created and saved', doc);
-//     next();
-// })
 
 // fire a function before doc saved to db
 userSchema.pre('save', async function (next) {
