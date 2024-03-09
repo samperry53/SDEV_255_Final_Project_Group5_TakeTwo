@@ -2,27 +2,20 @@
 <html lang="en">
     <%- include('./partials/head.ejs') %>
 <body>
-
-    <%- include('./partials/nav.ejs') %>
-
-    <div class="courses">
-        <h2>All Courses</h2>
-
-        <% if (courses.length > 0) { %>
-            <% courses.forEach(course => { %>
-
-            <a class="single" href="/courses/<%= course._id %>">
-            <h3 class="name"><%= course.name %></h3>
-            <p class="description"><%= course.description %></p>
-            <p class="subject"><%= course.subject %></p>
-            <p class="credits"><%= course.credits %></p>
-            </a>
-           <% }) %>
-        <% } else { %>
-        <p>There are no courses to display...</p> 
-        <% } %>
-        
-    </div>
+    <title>Imaginary University | <%= title %></title>
+    <a href="/"><h1>Imaginary University</h1></a>
+    <main>
+        <section class="hero">
+            <h2>Empowering Future Generations</h2>
+            <p>Join us in shaping the future through education.</p>
+            <a href="#" class="btn">Explore Courses</a>
+        </section>
+        <section class="about">
+            <h2>About Us</h2>
+            <p>Imaginary University is committed to providing high-quality education and fostering a supportive learning environment for all students.</p>
+        </section>
+        <!-- Add more sections as needed -->
+    </main>
     <%- include('./partials/footer.ejs') %>
 </body>
 </html>

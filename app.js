@@ -5,6 +5,7 @@ const { render } = require('ejs');
 const courseRoutes = require('./routes/courseRoutes');
 const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
+const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
 // express app
 const app = express();
@@ -29,12 +30,15 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(cookieParser());
 
+// routes
+app.get('*', checkUser);
 app.get('/', (req, res) => {
-    res.redirect('/courses');
+    // res.redirect('/courses');
+    res.render('index', { title: 'Home' });
 });
 
 // course routes
-app.use('/courses', courseRoutes);
+app.use('/courses', requireAuth, courseRoutes);
 
 // auth routes
 app.use(authRoutes);
