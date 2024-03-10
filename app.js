@@ -37,6 +37,8 @@ app.use('/courses', requireAuth, courseRoutes);
 
 // routes
 app.get('*', checkUser);
+
+// // this works properly
 app.get('/', (req, res) => {
     res.render('index', { title: 'Home' });
     // res.redirect('/courses');
@@ -44,6 +46,31 @@ app.get('/', (req, res) => {
 // app.get('/courses', requireAuth, (req, res) => {
 //     res.render('courses', { title: 'All Courses' });
 // });
+
+// this does not work properly
+// app.get('/', (req, res) => {
+//       console.log('Root route called');
+//       console.log('req.user:', req.user);
+  
+//       if (res.locals.user !== null && res.locals.user !== undefined) {
+//         console.log('User is authenticated');
+//         console.log('User role:', res.locals.user.role);
+        
+//         if (res.locals.user.role === 'teacher') {
+//           console.log('Rendering teacherIndex');
+//           res.render('teacherIndex', { title: 'Home', user: res.locals.user });
+//         } else if (res.locals.user.role === 'student') {
+//           console.log('Rendering studentIndex');
+//           res.render('studentIndex', { title: 'Home', user: res.locals.user });
+//         } else {
+//           console.log('User has an unknown role');
+//           res.render('index', { title: 'Home', user: {} });
+//         }
+//       } else {
+//         console.log('User is not authenticated');
+//         res.render('index', { title: 'Home', user: {} });
+//       }
+//     });
 
 // course routes
 
