@@ -31,22 +31,23 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use(cookieParser());
-// app.use(checkUser);
+app.use(checkUser);
+app.use(authRoutes);
+app.use('/courses', requireAuth, courseRoutes);
+
 // routes
 app.get('*', checkUser);
 app.get('/', (req, res) => {
     res.render('index', { title: 'Home' });
-    res.redirect('/courses');
+    // res.redirect('/courses');
 });
-app.get('/courses', requireAuth, (req, res) => {
-    res.render('courses', { title: 'All Courses' });
-});
+// app.get('/courses', requireAuth, (req, res) => {
+//     res.render('courses', { title: 'All Courses' });
+// });
 
 // course routes
-app.use('/courses', requireAuth, courseRoutes);
 
 // auth routes
-app.use(authRoutes);
 
 
 // 404 page

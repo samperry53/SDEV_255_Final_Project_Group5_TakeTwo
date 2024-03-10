@@ -10,13 +10,14 @@
 
         <% if (courses.length > 0) { %>
             <% courses.forEach(course => { %>
-
+            <div class="custom-card course-card mb-6">
             <a class="single" href="/courses/<%= course._id %>">
             <h3 class="name"><%= course.name %></h3>
             <p class="description"><%= course.description %></p>
             <p class="subject"><%= course.subject %></p>
             <p class="credits"><%= course.credits %></p>
             </a>
+            </div> 
            <% }) %>
         <% } else { %>
         <p>There are no courses to display...</p> 
