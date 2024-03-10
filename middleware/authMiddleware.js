@@ -23,13 +23,16 @@ const requireAuth = (req, res, next) => {
 // check current user
 const checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
+    console.log('checkUser middleware called');
 
     if (token) {
         jwt.verify(token, 'Group5Secret', async (err, decodedToken) => {
             if (err) {
+                console.log('JWT verification error:', err.message);
                 res.locals.user = null;
                 next();
             } else {
+                console.log('JWT verified:', decodedToken);
                 let user = await User.findById(decodedToken.id);
                 res.locals.user = user;
                 next();
@@ -37,6 +40,7 @@ const checkUser = (req, res, next) => {
         })
     }
     else {
+        console.log('No JWT token found');
         res.locals.user = null;
         next();
     }

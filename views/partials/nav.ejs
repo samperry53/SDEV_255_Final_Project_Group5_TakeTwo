@@ -1,21 +1,41 @@
-    <nav>
+<!-- 
         <div class="site-title">
             <a href="/"><h1>Imaginary University</h1></a>
             <p>Brought to you by Group5</p>
         </div>
-        <ul>
-            <li><a href="/courses">Courses</a></li>
-            <li><a href="/courses/create">Add New Course</a></li>
-            <nav>
-                <ul>
-                    <% if (user) { %>
-                        <li>Welcome, <%= user.email %></li>
-                        <li><a href="/logout">Log Out</a></li>
+        <nav>
+            <ul>
+                <% if (user && (user.role === 'student' || user.role === 'teacher'))  { %>
+                    <li>Welcome, <%= user.email %></li>
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/courses/create">Add New Course</a></li>
+                    <li><a href="/logout">Log Out</a></li>
                     <% } else { %>
                         <li><a href="/login">Log In</a></li>
                         <li><a href="/signup" class="btn">Sign Up</a></li>
                     <% } %>
                 </ul>
+            </nav>       -->
+
+
+            <nav>
+                <div class="site-title">
+                    <a href="/"><h1>Imaginary University</h1></a>
+                    <p>Brought to you by Group5</p>
+                </div>
+                <ul>
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/courses/create">Add New Course</a></li>
+                    <nav>
+                        <ul>
+                            <% if (user) { %>
+                                <li>Welcome, <%= user.email %></li>
+                                <li><a href="/logout">Log Out</a></li>
+                            <% } else { %>
+                                <li><a href="/login">Log In</a></li>
+                                <li><a href="/signup" class="btn">Sign Up</a></li>
+                            <% } %>
+                        </ul>
+                    </nav>
+                </ul>       
             </nav>
-        </ul>       
-    </nav>

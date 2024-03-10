@@ -25,30 +25,47 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-app.use((req, res, next) => {
-    res.locals.path = req.path;
-    next();
-});
 app.use(express.json());
 app.use(cookieParser());
 app.use(checkUser);
 app.use(authRoutes);
+// app.get('*', checkUser);
+app.use((req, res, next) => {
+  res.locals.path = req.path;
+  next();
+});
 app.use('/courses', requireAuth, courseRoutes);
 
-// routes
-app.get('*', checkUser);
+// testing
 app.get('/', (req, res) => {
-    res.render('index', { title: 'Home' });
-    // res.redirect('/courses');
+  res.render('index', { title: 'Home' });
+  // res.redirect('/courses');
 });
-// app.get('/courses', requireAuth, (req, res) => {
-//     res.render('courses', { title: 'All Courses' });
-// });
+// routes
+// app.get('/', (req, res) => {
+//     console.log('Root route called');
+//     console.log('req.user:', req.user);
 
-// course routes
-
-// auth routes
-
+//     if (res.locals.user !== null && res.locals.user !== undefined) {
+//       console.log('User is authenticated');
+//       console.log('User role:', res.locals.user.role);
+      
+//       if (res.locals.user.role === 'teacher') {
+//         console.log('Rendering teacherIndex');
+//         res.render('teacherIndex', { title: 'Home', user: res.locals.user });
+//       } else if (res.locals.user.role === 'student') {
+//         console.log('Rendering studentIndex');
+//         res.render('studentIndex', { title: 'Home', user: res.locals.user });
+//       } else {
+//         console.log('User has an unknown role');
+//         res.render('index', { title: 'Home', user: {} });
+//       }
+//     } else {
+//       console.log('User is not authenticated');
+//       res.render('index', { title: 'Home', user: {} });
+//     }
+//   });
+  
 
 // 404 page
 app.use((req, res) => {
