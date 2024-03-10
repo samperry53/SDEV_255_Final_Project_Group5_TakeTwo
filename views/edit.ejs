@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Course</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Edit Course</h1>
+    <form action="/courses/edit/<%= course._id %>" method="POST">
+        <!-- Course Name -->
+        <label for="name">Course Name:</label>
+        <input type="text" id="name" name="name" value="<%= course.name %>">
+        
+        <!-- Course Description -->
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"><%= course.description %></textarea>
+        
+        <!-- Course Subject -->
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" value="<%= course.subject %>">
+        
+        <!-- Course Credits -->
+        <label for="credits">Credits:</label>
+        <input type="number" id="credits" name="credits" value="<%= course.credits %>">
+        
+        <button type="submit">Update Course</button>
+    </form>
+</body>
+</html>

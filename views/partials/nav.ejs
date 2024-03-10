@@ -10,6 +10,8 @@
             <li>Welcome, <%= user.email %></li>
             <li><a href="/logout">Log Out</a></li>
             <li><a href="/courses">View Courses</a></li>
+            <li ><a href="/studentIndex">Students</a></li>
+            <li ><a href="/teacherIndex">Staff</a></li>
             <% if (user.role === 'teacher') { %>
                 <li><a href="/courses/create">Add New Course</a></li>
             <% } %>

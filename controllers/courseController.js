@@ -48,10 +48,35 @@ const course_delete = (req, res) => {
     });
 }
 
+const course_edit_get = (req, res) => {
+  const id = req.params.id;
+  Course.findById(id)
+    .then(result => {
+      res.render('edit', { course: result, title: 'Edit Course' });
+    })
+    .catch(err => {
+      res.status(404).render('404', { title: 'Course not found' });
+    });
+}
+
+const course_edit_post = (req, res) => {
+  const id = req.params.id;
+  const { name, description, subject, credits } = req.body;
+  Course.findByIdAndUpdate(id, { name, description, subject, credits }, { new: true })
+    .then(result => {
+      res.redirect('/courses');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 module.exports = {
   course_index, 
   course_details, 
   course_create_get, 
   course_create_post, 
-  course_delete
+  course_delete,
+  course_edit_get,
+  course_edit_post
 }

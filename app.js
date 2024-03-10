@@ -39,9 +39,20 @@ app.use('/courses', requireAuth, courseRoutes);
 app.get('*', checkUser);
 
 // // this works properly
-app.get('/', (req, res) => {
+app.get('/', requireAuth, (req, res) => {
+  const { role } = res.locals.user.role;
+    
+  if (role === 'student') {
+  res.render('studentIndex', { title: 'Home' });
+  }
+  if (role === 'teacher') {
+    res.render('teacherIndex', { title: 'Home' });
+  }
+  else {
     res.render('index', { title: 'Home' });
+  }
     // res.redirect('/courses');
+
 });
 // app.get('/courses', requireAuth, (req, res) => {
 //     res.render('courses', { title: 'All Courses' });
@@ -72,9 +83,50 @@ app.get('/', (req, res) => {
 //       }
 //     });
 
-// course routes
+// app.get('/', authMiddleware.requireAuth, (req, res) => {
+//   const { role } = req.user;
 
-// auth routes
+//   if (role === 'teacher') {
+//     Course.find()
+//       .then(courses => {
+//         res.render('teacherIndex', { title: 'Staff', courses });
+//       })
+//       .catch(err => {
+//         console.error(err);
+//         res.status(500).send('Internal Server Error');
+//       });
+//   } else {
+//     res.status(403).send('Forbidden: Access denied for non-teachers.');
+//   }
+// });
+
+
+// Express route for updating a course
+app.get('/courses/edit/:id', async (req, res) => {
+  try {
+      const courseId = req.params.id;
+      const course = await Course.findById(courseId); // Fetch course from the database
+      if (!course) {
+          return res.status(404).send("Course not found");
+      }
+      res.render('edit', { course }); // Render a page where the course can be updated
+  } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+  }
+});
+
+// Express route for deleting a course
+app.delete('/courses/delete/:id', async (req, res) => {
+  try {
+      const courseId = req.params.id;
+      await Course.findByIdAndDelete(courseId); // Delete the course from the database
+      res.status(200).send("Course deleted successfully");
+  } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+  }
+});
 
 
 // 404 page
