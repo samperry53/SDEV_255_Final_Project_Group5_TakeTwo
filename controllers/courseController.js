@@ -88,6 +88,7 @@ const schedule_create_post = async (req, res) => {
     const userId = req.user._id; // Assuming user ID is available in req.user
     const courseId = req.params.courseId;
 
+    console.log(`UserId: ${userId}`)
     // Step 1: Retrieve user and course information
     const user = await User.findById(userId);
     const course = await Course.findById(courseId);

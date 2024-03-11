@@ -1,10 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap");
-body {
+/* body {
   max-width: 1200px;
   margin: 20px auto;
   padding: 0 20px;
   font-family: "Noto Serif", serif;
   max-width: 1200px;
+} */
+body {
+  font-family: "Noto Serif", serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa; /* Set a light background color */
 }
 p,
 h1,
@@ -26,11 +32,18 @@ nav {
   padding-bottom: 10px;
   border-bottom: 1px solid #ddd;
   text-transform: uppercase;
+  background-color: #007bff; /* Set a primary color for the navbar */
+  color: #fff;
+  padding: 15px 0;
 }
 nav ul {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 nav li {
   list-style-type: none;
@@ -38,11 +51,15 @@ nav li {
 }
 nav h1 {
   font-size: 3em;
+  margin: 0;
 }
 nav p,
 nav a {
-  color: #777;
-  font-weight: 300;
+  /* color: #777;
+  font-weight: 300; */
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
 }
 btn {
   border-radius: 36px;
@@ -177,4 +194,41 @@ textarea {
   margin: 10px 2px;
   font-size: 0.8em;
   font-weight: bold;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+/* Course Card Styles */
+.course-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.course-card h3 {
+  color: #007bff; /* Set a primary color for the course name */
+  margin-bottom: 10px;
+}
+
+.course-card p {
+  color: #555; /* Set a darker color for course details */
+  margin-bottom: 5px;
+}
+
+.register-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-button:hover {
+  background-color: #0056b3; /* Darken the color on hover */
 }

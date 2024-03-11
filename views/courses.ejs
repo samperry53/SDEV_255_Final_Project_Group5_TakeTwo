@@ -61,10 +61,11 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const registerButtons = document.querySelectorAll('.register-button');
-        
+        // debugger;
+
         registerButtons.forEach(button => {
             button.addEventListener('click', async (event) => {
-                const courseId = button.dataset.courseId;
+                const courseId = button.dataset.courseid;
                 
                 try {
                     const response = await fetch('/courses/register/' + courseId, {
@@ -73,7 +74,7 @@
                             'Content-Type': 'application/json'
                         }
                     });
-
+                    console.log(response);
                     if (!response.ok) {
                         throw new Error('Failed to register for the course');
                     }

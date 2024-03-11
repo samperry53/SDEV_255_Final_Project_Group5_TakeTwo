@@ -37,6 +37,7 @@ app.use('/courses', requireAuth, courseRoutes);
 
 // routes
 app.get('*', checkUser);
+app.post('*', checkUser);
 
 // // this works properly
 app.get('/', requireAuth, (req, res) => {
