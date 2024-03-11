@@ -84,9 +84,11 @@ const course_edit_post = (req, res) => {
 }
 
 const schedule_create_post = async (req, res) => {
+  const userId = req.user._id; // Assuming user ID is available in req.user
+  const { courseId } = req.body;
   try {
-    const userId = req.user._id; // Assuming user ID is available in req.user
-    const courseId = req.params.courseId;
+    await User.findByIdAndUpdate(userId, { $addToSet: { schedule: courseId }});
+    // const courseId = req.params.courseId;
 
     console.log(`UserId: ${userId}`)
     // Step 1: Retrieve user and course information

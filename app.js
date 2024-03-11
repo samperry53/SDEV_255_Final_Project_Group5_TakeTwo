@@ -128,6 +128,8 @@ app.delete('/courses/delete/:id', async (req, res) => {
       res.status(500).send("Internal Server Error");
   }
 });
+// I attempted this but nothing is working properly
+
 
 // // Route to render the student's schedule page
 // app.get('/schedule', requireAuth, async (req, res) => {
@@ -143,7 +145,45 @@ app.delete('/courses/delete/:id', async (req, res) => {
 //       res.status(500).send("Internal Server Error");
 //   }
 // });
+// // Route to handle adding a course to the schedule
+// app.post('/schedule', authMiddleware.requireAuth, async (req, res) => {
+//   const { courseId } = req.body;
+//   const userId = req.user.id;
 
+//   try {
+//     // Add the course to the user's schedule
+//     await User.findByIdAndUpdate(userId, { $addToSet: { schedule: courseId } });
+    
+//     // Fetch the updated user information and courses
+//     const user = await User.findById(userId);
+//     const courses = await Course.find();
+
+//     res.render('students', { title: 'Students', user, courses });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+// // Route to handle dropping a course from the schedule
+// app.post('/schedule/drop', authMiddleware.requireAuth, async (req, res) => {
+//   const { courseId } = req.body;
+//   const userId = req.user.id;
+
+//   try {
+//     // Remove the course from the user's schedule
+//     await User.findByIdAndUpdate(userId, { $pull: { schedule: courseId } });
+
+//     // Fetch the updated user information and courses
+//     const user = await User.findById(userId);
+//     const courses = await Course.find();
+
+//     res.render('students', { title: 'Students', user, courses });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
 
 
 
