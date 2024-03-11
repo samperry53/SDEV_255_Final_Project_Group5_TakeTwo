@@ -37,8 +37,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // app.use(bodyParser.json());
-app.use(authRoutes);
 app.use(checkUser);
+app.use(authRoutes);
 app.use('/courses', requireAuth, courseRoutes);
 
 // routes
