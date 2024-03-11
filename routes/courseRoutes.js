@@ -10,6 +10,8 @@ router.get('/:id', courseController.course_details);
 router.delete('/:id', courseController.course_delete);
 router.get('/edit/:id', courseController.course_edit_get);
 router.post('/edit/:id', courseController.course_edit_post);
+router.get('/schedule', courseController.schedule_index);
+router.post('/courses/register/:courseId', courseController.schedule_create_post);
 
 
 router.get('/')

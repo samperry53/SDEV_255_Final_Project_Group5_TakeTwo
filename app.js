@@ -128,6 +128,23 @@ app.delete('/courses/delete/:id', async (req, res) => {
   }
 });
 
+// // Route to render the student's schedule page
+// app.get('/schedule', requireAuth, async (req, res) => {
+//   try {
+//       // // Retrieve the courses that the student is registered for
+//       // const studentId = req.user.id; // Assuming the student ID is available in the request user object
+//       // const courses = await Course.find({ students: studentId }).populate('teacher'); // Assuming 'students' field in Course model contains student IDs
+
+//       // Render the schedule page and pass the courses data to the view
+//       res.render('schedule', { courses });
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).send("Internal Server Error");
+//   }
+// });
+
+
+
 
 // 404 page
 app.use((req, res) => {

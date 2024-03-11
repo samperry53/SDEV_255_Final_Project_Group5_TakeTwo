@@ -18,7 +18,7 @@
             <p class="credits">Credits: <%= course.credits %></p>
             </a>
             <% if (user && user.role === 'student') { %>
-            <button>Register</button>
+            <button class="register-button" data-courseId="<%= course._id %>">Register</button>
             <% } %>
             <% if (user && user.role === 'teacher') { %>
                 <a href="/courses/edit/<%= course._id %>"><button>Update</button></a>
@@ -57,35 +57,34 @@
     }
 </script>
 
-
+<!-- handle registration -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const registerButtons = document.querySelectorAll('.register-button');
-    
-    registerButtons.forEach(button => {
-        button.addEventListener('click', async (event) => {
-            const courseId = button.dataset.courseId;
-            
-            try {
-                const response = await fetch('/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ courseId })
-                });
+        const registerButtons = document.querySelectorAll('.register-button');
+        
+        registerButtons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const courseId = button.dataset.courseId;
+                
+                try {
+                    const response = await fetch('/courses/register/' + courseId, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
 
-                if (!response.ok) {
-                    throw new Error('Failed to register for the course');
+                    if (!response.ok) {
+                        throw new Error('Failed to register for the course');
+                    }
+
+                    alert('Successfully registered for the course');
+                    window.location.reload();
+                } catch (error) {
+                    console.error('Registration error:', error.message);
+                    alert('Failed to register for the course');
                 }
-
-                // Optionally handle success response
-            } catch (error) {
-                console.error('Registration error:', error.message);
-                // Optionally display an error message to the user
-            }
+            });
         });
     });
-});
-
 </script>

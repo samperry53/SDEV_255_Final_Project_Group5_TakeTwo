@@ -20,7 +20,13 @@ const userSchema = new mongoose.Schema({
         enum: ['teacher', 'student'],
         default: 'student',
         required: true
-    }
+    },
+    schedule: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Course',
+        },
+      ],
 });
 
 // fire a function before doc saved to db
