@@ -83,34 +83,82 @@ const course_edit_post = (req, res) => {
     });
 }
 
+// const schedule_create_post = async (req, res) => {
+//   const courseId = req.params.id;
+//   const userId = req.user.id;
+
+//   try {
+//     await User.findByIdAndUpdate(userId, { $addToSet: { schedule: courseId }});
+
+//   } 
+//   catch (err) {
+//   console.error('Error in addToSchedule:', err);
+//   res.status(500).send('Internal Server Error: Unable to update schedule.');
+// }
+// };
+
+// This is most recent
 const schedule_create_post = async (req, res) => {
-  const userId = req.user._id; // Assuming user ID is available in req.user
-  const { courseId } = req.body;
+  const courseId = req.params.id;
+  const userId = req.user.id;
+  // res.setHeader('Content-Type', 'application/json');
   try {
-    await User.findByIdAndUpdate(userId, { $addToSet: { schedule: courseId }});
-    // const courseId = req.params.courseId;
-
-    console.log(`UserId: ${userId}`)
-    // Step 1: Retrieve user and course information
+    // Check if the course is already in the user's schedule
     const user = await User.findById(userId);
-    const course = await Course.findById(courseId);
+    if (user.schedule.includes(courseId)) {
+      // return res.status(400).send('Course already exists in the schedule');
+      return res.status(400).json({ message: 'Course already exists in the schedule' });
 
-    // Step 2: Check for duplicate entries
-    if (!user.schedule.includes(courseId)) {
-        // Step 3: Add course to user's schedule
-        user.schedule.push(courseId);
-
-        // Step 4: Update user document
-        await user.save();
-        res.status(200).send('Course added to schedule successfully');
-    } else {
-        res.status(400).send('Course already exists in the schedule');
     }
+
+    // Add the course to the user's schedule
+    user.schedule.push(courseId);
+    await user.save();
+
+    // console.log('Response Content:', res.getHeaders());
+    // console.log('Response Headers:', res.getHeaders());
+    
+    // res.setHeader('Content-Type', 'application/json');
+
+    // res.status(200).send('Course added to schedule successfully');
+    res.status(200).json({ message: 'Course added to schedule successfully' });
+
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
+    console.error('Error adding course to schedule:', error);
+    // res.status(500).send('Internal Server Error');
+    res.status(500).json({ message: 'Internal Server Error' });
+
   }
 };
+
+// const schedule_create_post = async (req, res) => {
+//   const userId = req.user._id; // Assuming user ID is available in req.user
+//   const { courseId } = req.body;
+//   try {
+//     await User.findByIdAndUpdate(userId, { $addToSet: { schedule: courseId }});
+//     // const courseId = req.params.courseId;
+
+//     console.log(`UserId: ${userId}`)
+//     // Step 1: Retrieve user and course information
+//     const user = await User.findById(userId);
+//     const course = await Course.findById(courseId);
+
+//     // Step 2: Check for duplicate entries
+//     if (!user.schedule.includes(courseId)) {
+//         // Step 3: Add course to user's schedule
+//         user.schedule.push(courseId);
+
+//         // Step 4: Update user document
+//         await user.save();
+//         res.status(200).send('Course added to schedule successfully');
+//     } else {
+//         res.status(400).send('Course already exists in the schedule');
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// };
 
 module.exports = {
   course_index, 

@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const Course = require('./models/course');
 const User = require('./models/User');
+const bodyParser = require('body-parser');
 
 // express app
 const app = express();
@@ -26,13 +27,18 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use((req, res, next) => {
+    // res.setHeader('Content-Type', 'application/json');
     res.locals.path = req.path;
+    // res.header(res.header("Access-Control-Allow-Headers", 
+    // 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json'));
     next();
 });
 app.use(express.json());
 app.use(cookieParser());
-app.use(checkUser);
+
+// app.use(bodyParser.json());
 app.use(authRoutes);
+app.use(checkUser);
 app.use('/courses', requireAuth, courseRoutes);
 
 // routes
